@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Studio - Modern Link to QR Code Generator & High-Res Downloader</title>
+  <meta name="description" content="Generate high-resolution QR codes from any web link. Customize colors, add logos, and download in PNG, SVG, JPEG, or WebP with instant live preview.">
+  <meta name="keywords" content="QR code generator, link to QR, convert URL to QR, download QR code, custom QR codes">
+  <meta name="author" content="QR Studio">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="QR Studio - High-Resolution Link to QR Code Generator">
+  <meta property="og:description" content="Convert any link to a beautiful, customizable QR code with instant download options.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366f1'><rect width='24' height='24' rx='6' fill='%23121722'/><rect x='4' y='4' width='6' height='6' rx='1' fill='%236366f1'/><rect x='14' y='4' width='6' height='6' rx='1' fill='%236366f1'/><rect x='4' y='14' width='6' height='6' rx='1' fill='%236366f1'/><rect x='14' y='14' width='3' height='3' fill='%23ec4899'/><rect x='17' y='17' width='3' height='3' fill='%2306b6d4'/></svg>">
+</head>
+<body>
+  <!-- Ambient Gradient Background -->
+  <div class="ambient-background" aria-hidden="true">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="ambient-blob blob-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-wrapper">
+        <div class="brand-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+            <path d="M14 14h3v3h-3z"></path>
+            <path d="M20 14v3"></path>
+            <path d="M14 20h3"></path>
+            <path d="M20 20h.01"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">QR Studio</h1>
+          <p class="brand-tagline">Convert any web link to high-resolution customizable QR codes</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle dark/light theme" title="Toggle Theme">
+          <svg id="themeIconDark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+          <svg id="themeIconLight" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <span id="themeBtnText">Dark Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-grid">
+      <!-- Left Panel: Input & Customization -->
+      <section class="glass-panel" aria-labelledby="input-config-title">
+        <div class="section-header">
+          <h2 id="input-config-title" class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            Enter Link & Customize
+          </h2>
+          <p class="section-desc">Paste your link below to automatically generate your QR code.</p>
+        </div>
+
+        <!-- URL Input Field -->
+        <div class="input-group">
+          <label for="urlInput" class="input-label">Destination URL / Web Link</label>
+          <div class="input-box-wrapper">
+            <span class="input-icon-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+            </span>
+            <input 
+              type="url" 
+              id="urlInput" 
+              class="input-field" 
+              placeholder="https://yourwebsite.com or any link..." 
+              value="https://github.com"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            >
+            <div class="input-actions-right">
+              <button id="pasteBtn" type="button" class="mini-action-btn" title="Paste link from clipboard">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                </svg>
+                Paste
+              </button>
+              <button id="clearBtn" type="button" class="mini-action-btn" title="Clear text">
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Suggestion Links -->
+          <div class="quick-chips">
+            <span style="font-size:0.75rem; color:var(--text-subtle); align-self:center;">Try:</span>
+            <button type="button" class="chip" data-sample="https://google.com">Google</button>
+            <button type="button" class="chip" data-sample="https://github.com">GitHub</button>
+            <button type="button" class="chip" data-sample="https://youtube.com">YouTube</button>
+            <button type="button" class="chip" data-sample="https://wikipedia.org">Wikipedia</button>
+            <button type="button" class="chip" data-sample="https://instagram.com">Instagram</button>
+          </div>
+        </div>
+
+        <div class="settings-divider"></div>
+
+        <!-- Customization Controls Grid -->
+        <div class="settings-grid">
+          <!-- Foreground Color -->
+          <div class="setting-item">
+            <span class="setting-title">QR Code Color (Foreground)</span>
+            <div class="color-picker-row">
+              <input type="color" id="fgColorInput" class="native-color-picker" value="#000000" aria-label="Foreground color">
+              <span id="fgColorLabel" class="color-hex-label">#000000</span>
+            </div>
+          </div>
+
+          <!-- Background Color -->
+          <div class="setting-item">
+            <span class="setting-title">Background Color</span>
+            <div class="color-picker-row">
+              <input type="color" id="bgColorInput" class="native-color-picker" value="#FFFFFF" aria-label="Background color">
+              <span id="bgColorLabel" class="color-hex-label">#FFFFFF</span>
+            </div>
+          </div>
+
+          <!-- Color Presets -->
+          <div class="setting-item" style="grid-column: 1 / -1;">
+            <span class="setting-title">Quick Color Themes</span>
+            <div class="presets-list" id="themePresetsList">
+              <button type="button" class="preset-chip active" style="background:#000000;" data-fg="#000000" data-bg="#ffffff" title="Classic Monochrome"></button>
+              <button type="button" class="preset-chip" style="background:#4f46e5;" data-fg="#4f46e5" data-bg="#ffffff" title="Indigo Blue"></button>
+              <button type="button" class="preset-chip" style="background:#059669;" data-fg="#059669" data-bg="#ecfdf5" title="Forest Mint"></button>
+              <button type="button" class="preset-chip" style="background:#db2777;" data-fg="#db2777" data-bg="#fff1f2" title="Rose Pink"></button>
+              <button type="button" class="preset-chip" style="background:#0284c7;" data-fg="#0284c7" data-bg="#f0f9ff" title="Sky Cyan"></button>
+              <button type="button" class="preset-chip" style="background:#d97706;" data-fg="#d97706" data-bg="#fffbeb" title="Sunset Amber"></button>
+              <button type="button" class="preset-chip" style="background:#7c3aed;" data-fg="#7c3aed" data-bg="#faf5ff" title="Royal Violet"></button>
+              <button type="button" class="preset-chip" style="background:#22c55e;" data-fg="#22c55e" data-bg="#0f172a" title="Cyber Neon"></button>
+            </div>
+          </div>
+
+          <!-- Error Correction Level -->
+          <div class="setting-item">
+            <label for="errorCorrectionSelect" class="setting-title">Error Correction Level</label>
+            <select id="errorCorrectionSelect" class="custom-select">
+              <option value="L">L - Low (~7% recovery)</option>
+              <option value="M">M - Medium (~15% recovery)</option>
+              <option value="Q">Q - Quartile (~25% recovery)</option>
+              <option value="H" selected>H - High (~30% best with logo)</option>
+            </select>
+          </div>
+
+          <!-- Quiet Zone / Margin -->
+          <div class="setting-item">
+            <div class="slider-val-tag">
+              <span class="setting-title">Margin Padding</span>
+              <span id="marginValLabel">10px</span>
+            </div>
+            <input type="range" id="marginSlider" class="slider-control" min="0" max="40" step="5" value="10">
+          </div>
+
+          <!-- Transparent Background Toggle -->
+          <div class="setting-item">
+            <div class="toggle-row">
+              <span class="toggle-label">Transparent Background</span>
+              <label class="switch">
+                <input type="checkbox" id="transparentBgToggle">
+                <span class="slider-toggle"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Rounded Canvas Border Toggle -->
+          <div class="setting-item">
+            <div class="toggle-row">
+              <span class="toggle-label">Soft Rounded Outer Frame</span>
+              <label class="switch">
+                <input type="checkbox" id="roundedFrameToggle" checked>
+                <span class="slider-toggle"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Center Icon / Logo Selection -->
+          <div class="setting-item" style="grid-column: 1 / -1;">
+            <span class="setting-title">Center Logo / Icon (Optional)</span>
+            <div class="logo-options-row">
+              <button type="button" class="logo-btn active" data-logo="none" title="No logo">None</button>
+              <button type="button" class="logo-btn" data-logo="link" title="Link Icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              </button>
+              <button type="button" class="logo-btn" data-logo="globe" title="Web Globe">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </button>
+              <button type="button" class="logo-btn" data-logo="star" title="Star Icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </button>
+              <button type="button" class="logo-btn" data-logo="github" title="GitHub">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </button>
+
+              <label class="upload-logo-label" title="Upload custom PNG/SVG logo">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span>Upload Custom Logo</span>
+                <input type="file" id="logoUploadInput" accept="image/png, image/jpeg, image/svg+xml, image/webp" style="display:none;">
+              </label>
+
+              <button type="button" id="removeLogoBtn" class="mini-action-btn" style="display:none; color:var(--accent-rose);" title="Remove logo">
+                Remove Custom Logo
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Live Preview & Download Actions -->
+      <section class="glass-panel preview-panel" aria-labelledby="preview-title">
+        <div class="section-header" style="width: 100%;">
+          <h2 id="preview-title" class="section-title" style="justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            Live QR Code Preview
+          </h2>
+        </div>
+
+        <!-- QR Display Canvas Area -->
+        <div class="qr-display-card" id="qrDisplayCard">
+          <div class="qr-canvas-holder" id="qrCanvasHolder">
+            <!-- QR Canvas generated here -->
+          </div>
+          <div class="qr-center-logo-overlay" id="qrCenterLogoOverlay">
+            <!-- Center logo placed here -->
+          </div>
+        </div>
+
+        <!-- Destination Link pill with quick test -->
+        <div class="link-badge-container">
+          <div class="link-badge">
+            <span class="link-badge-text" id="linkBadgeText">https://github.com</span>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" id="openLinkExternal" class="link-open-btn" title="Open link in new tab">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Test Link
+            </a>
+          </div>
+        </div>
+
+        <!-- Export Size & Format Selection -->
+        <div class="export-config-grid">
+          <div class="setting-item">
+            <label for="exportFormatSelect" class="setting-title">Export Format</label>
+            <select id="exportFormatSelect" class="custom-select">
+              <option value="png" selected>PNG (Lossless / High Quality)</option>
+              <option value="svg">SVG (Vector Scalable)</option>
+              <option value="jpeg">JPEG (Standard Photo)</option>
+              <option value="webp">WebP (Modern Web Format)</option>
+            </select>
+          </div>
+
+          <div class="setting-item">
+            <label for="exportSizeSelect" class="setting-title">Export Resolution</label>
+            <select id="exportSizeSelect" class="custom-select">
+              <option value="300">Standard (300 × 300 px)</option>
+              <option value="600" selected>HD (600 × 600 px)</option>
+              <option value="1200">Ultra HD (1200 × 1200 px)</option>
+              <option value="2400">Print Quality (2400 × 2400 px)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Primary Action: Download QR Button -->
+        <button id="downloadQrBtn" type="button" class="primary-btn" title="Download QR Code">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span id="downloadBtnLabel">Download QR Code</span>
+        </button>
+
+        <!-- Secondary Actions Row -->
+        <div class="secondary-actions-row">
+          <button id="copyImageBtn" type="button" class="secondary-btn" title="Copy QR Code image to clipboard">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy Image
+          </button>
+
+          <button id="copyLinkBtn" type="button" class="secondary-btn" title="Copy current link URL">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            Copy Link
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Recent History Section -->
+    <section class="history-section" aria-labelledby="history-title">
+      <div class="history-header">
+        <h3 id="history-title" class="section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Recent Generations
+        </h3>
+        <button id="clearHistoryBtn" type="button" class="mini-action-btn" title="Clear generation history">
+          Clear History
+        </button>
+      </div>
+
+      <div class="history-grid" id="historyGrid">
+        <!-- Rendered dynamically from localStorage -->
+        <p class="empty-history-text">No previous QR codes generated yet. Type a link above to get started!</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>QR Studio &bull; Built with standard Web APIs (HTML5, Vanilla CSS &amp; JavaScript). Runs completely offline.</p>
+    </footer>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- QR Code Engine Scripts -->
+  <script src="js/qrcode.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
